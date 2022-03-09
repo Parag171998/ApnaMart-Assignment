@@ -3,10 +3,12 @@ package com.example.assignmentapnamart.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.assignmentapnamart.R
 import com.example.assignmentapnamart.models.ResponseDataItem
 
@@ -21,10 +23,12 @@ class RvAdapter(): PagingDataAdapter<ResponseDataItem, RvAdapter.RvViewHolder>(D
     override fun onBindViewHolder(holder: RvViewHolder, position: Int) {
         val item = getItem(position)
         holder.authName.text = item?.author
+        Glide.with(holder.itemView.context).load(item?.download_url).into(holder.authImg)
     }
 
     class RvViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val authName: TextView = itemView.findViewById(R.id.nameTxt)
+        val authImg: ImageView = itemView.findViewById(R.id.imageView)
     }
 
     object DataDifferntiator : DiffUtil.ItemCallback<ResponseDataItem>() {
